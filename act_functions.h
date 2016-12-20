@@ -33,16 +33,14 @@ public:
 
 }
 void connectAllSignalSlot(){
-       //ad
+        //ad
         QObject::connect(ui->ad_start, SIGNAL(clicked()),this,SLOT(startAD()) );
         QObject::connect(ui->ad_stop,SIGNAL(clicked()),this,SLOT(stopAD()) );
         QObject::connect(th_ad,      SIGNAL(AdPortData(float,float,float)) , this, SLOT(showAdData(float,float,float)) );
 	//motor
         QObject::connect(ui->motor_start     ,SIGNAL(clicked()), this, SLOT(startMotor()));
         QObject::connect(ui->motor_stop     ,SIGNAL(clicked()), this , SLOT(stopMotor()));
-
         QObject::connect(ui->motor_reverse   ,SIGNAL(clicked()), th_motor , SLOT(MotorReverseDirection()));
-
         QObject::connect(ui->speedUp   ,SIGNAL(clicked()), th_motor , SLOT(MotorSpeedUp()));
         QObject::connect(ui->speedDown ,SIGNAL(clicked()), th_motor , SLOT(MotorSpeedDown()));
 	//led
@@ -50,7 +48,6 @@ void connectAllSignalSlot(){
         QObject::connect(ui->led_release         ,SIGNAL(clicked()), this , SLOT(ledRelease()));
         QObject::connect(ui->showA          ,SIGNAL(clicked()), this , SLOT(ledShowA()));
         QObject::connect(ui->show1           ,SIGNAL(clicked()), this , SLOT(ledShow1()));
-//	QObject::connect(ui->ShowButton         ,SIGNAL(clicked()), this , SLOT(ledShow()));
 
 
 }
@@ -84,7 +81,7 @@ public slots:
         }
 
     void showAdData(float f0, float f1, float f2){
-		//printf("show data(%f, %f, %f)\n",f0,f1,f2);
+		
 		ui->adpot0->setText(QString("%1").arg(f0));
 		ui->adpot1->setText(QString("%1").arg(f1));
 		ui->adpot2->setText(QString("%1").arg(f2));
@@ -103,7 +100,6 @@ public slots:
 		if(th_motor==0)return;
 		printf("stopMotor()");
 		th_motor->stop();
-		//delete th_motor;
 		th_motor=0;
                 ui->motor_start->setEnabled(true);
 	}
@@ -115,16 +111,12 @@ public slots:
                 if (fd < 0) {printf("falied to open led\n");   return; }
 
                 LEDWORD=0xff00;
-                //printf("will enter TUBE LED  ,please waiting .............. \n");
                 LEDWORD=0xff00;
                ioctl(fd,0x12,LEDWORD);
-            //  write(fd,alpha[0],10);
-                //printf("will enter DIG LED  ,please waiting .............. \n");
-                //sleep(1);
+       
         }
         void ledRelease(){ printf("ledRelease\n"); close(fd);}
         void ledShowA(){printf("showA() fd = %d\n",fd); write(fd,alpha[0],10);}
         void ledShow1(){printf("show1\n"); write(fd,digit[1],10);}
-  //      void ledShow(){write(fd,digit[0],10);}
 
 };

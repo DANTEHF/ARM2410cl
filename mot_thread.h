@@ -28,7 +28,7 @@ public:
 	}
 protected:
 	void run(){
-	         //int factor = DCM_TCNTB0/1024;
+	         
                 char *DCM_DEV="/dev/dcm/0raw";
                  if((dcm_fd=open(DCM_DEV, O_WRONLY))<0){
                         printf("Error opening /dev/dcm/0raw device\n");
@@ -39,10 +39,9 @@ protected:
 	while(!stopped) {
 		for (i=-512; i<=512; i++) {
 			ioctl(dcm_fd, DCM_IOCTRL_SETPWM,(direct*speed*factor));			
-			//delay
 			int t,j;
 			for(t=500;t>0;t--) for(j=0;j<400;j++);
-			//printf("setpwm = %d \n", setpwm);
+			
 		}
 		
 	}
@@ -50,12 +49,7 @@ protected:
 		
 	}
 public slots:
-//	void MotorDirectionPositive(){
-//		direct=1;
-//	}
-//	void MotorDirectionNegative(){
-//		direct=-1;
-//	}
+
 	void MotorReverseDirection(){
 		direct*=-1;
 	}

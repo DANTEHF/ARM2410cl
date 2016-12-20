@@ -14,9 +14,6 @@ public:
 	ADThread(){
 		stopped = true;
 		adc_fd=0;
-	//	char * ADC="/dev/adc/0raw";
-         //       adc_fd=open(ADC, O_RDWR);
-         //       if(adc_fd<0){printf("faied to open adc\n "); return;}
                 
 	}
 	void stop(){
